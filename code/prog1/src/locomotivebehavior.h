@@ -10,6 +10,7 @@
 #include "locomotive.h"
 #include "launchable.h"
 #include "sharedsectioninterface.h"
+#include "waycontroller.h"
 
 /**
  * @brief La classe LocomotiveBehavior représente le comportement d'une locomotive
@@ -21,7 +22,8 @@ public:
      * \brief locomotiveBehavior Constructeur de la classe
      * \param loco la locomotive dont on représente le comportement
      */
-    LocomotiveBehavior(Locomotive& loco, std::shared_ptr<SharedSectionInterface> sharedSection, int noBorneDebut,  int noBorneFin) : loco(loco), sharedSection(sharedSection), noBorneDebut(noBorneDebut), noBorneFin(noBorneFin) {
+    LocomotiveBehavior(Locomotive& loco, std::shared_ptr<SharedSectionInterface> sharedSection, int noBorneDebut,  int noBorneFin, WayController* way) :
+        loco(loco), sharedSection(sharedSection), noBorneDebut(noBorneDebut), noBorneFin(noBorneFin), way(way) {
         // Eventuel code supplémentaire du constructeur
     }
 
@@ -59,6 +61,7 @@ protected:
 
     int noBorneDebut;
     int noBorneFin;
+    WayController* way;
 };
 
 #endif // LOCOMOTIVEBEHAVIOR_H

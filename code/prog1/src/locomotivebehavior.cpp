@@ -26,7 +26,7 @@ void LocomotiveBehavior::run()
     while(1) {
         attendre_contact(noBorneDebut);
         sharedSection->access(loco);
-
+        way->changeWay(noBorneDebut);
         attendre_contact(noBorneFin);
         sharedSection->leave(loco);
     }

@@ -35,7 +35,7 @@ public:
         for(size_t i = 0; i < events->size(); i++){
             if(events->at(i).getNoPlaquePression() == noPlaquePression){
                 EventDetail* event = &events->at(i);
-                diriger_aiguillage(noPlaquePression, event->getDirection(), 0);
+                diriger_aiguillage(event->getNoAiguillage(), event->getDirection(), 0);
             }
         }
     }

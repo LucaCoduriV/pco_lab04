@@ -10,6 +10,7 @@
 #include "locomotivebehavior.h"
 #include "sharedsectioninterface.h"
 #include "sharedsection.h"
+#include "waycontroller.h"
 
 // Locomotives :
 // Vous pouvez changer les vitesses initiales, ou utiliser la fonction loco.fixerVitesse(vitesse);
@@ -97,14 +98,30 @@ int cmain()
     /*********************
      * Threads des locos *
      ********************/
+    //création des evenements de guidages
+
+    std::vector<EventDetail> events1;
+    events1.emplace_back(3, 1, TOUT_DROIT);
+    events1.emplace_back(3, 13, TOUT_DROIT);
+    events1.emplace_back(22, 13, TOUT_DROIT);
+    events1.emplace_back(22, 1, TOUT_DROIT);
+    std::vector<EventDetail> events2;
+    events2.emplace_back(1, 1, DEVIE);
+    events2.emplace_back(1, 13, DEVIE);
+    events2.emplace_back(19, 13, DEVIE);
+    events2.emplace_back(19, 1, DEVIE);
+
+
+    WayController way1(&events1);
+    WayController way2(&events2);
 
     // Création de la section partagée
     std::shared_ptr<SharedSectionInterface> sharedSection = std::make_shared<SharedSection>();
 
     // Création du thread pour la loco 0
-    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, 1, 19);
+    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, 1, 19, &way2);
     // Création du thread pour la loco 1
-    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, 3, 22);
+    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, 3, 22, &way1);
 
     // Lanchement des threads
     afficher_message(qPrintable(QString("Lancement thread loco A (numéro %1)").arg(locoA.numero())));
