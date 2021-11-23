@@ -21,7 +21,15 @@ void LocomotiveBehavior::run()
     //sharedSection->getAccess(loco);
     //sharedSection->leave(loco);
 
-    while(1) {}
+
+
+    while(1) {
+        attendre_contact(noBorneDebut);
+        sharedSection->access(loco);
+
+        attendre_contact(noBorneFin);
+        sharedSection->leave(loco);
+    }
 }
 
 void LocomotiveBehavior::printStartMessage()

@@ -21,7 +21,7 @@ public:
      * \brief locomotiveBehavior Constructeur de la classe
      * \param loco la locomotive dont on représente le comportement
      */
-    LocomotiveBehavior(Locomotive& loco, std::shared_ptr<SharedSectionInterface> sharedSection /*, autres paramètres éventuels */) : loco(loco), sharedSection(sharedSection) {
+    LocomotiveBehavior(Locomotive& loco, std::shared_ptr<SharedSectionInterface> sharedSection, int noBorneDebut,  int noBorneFin) : loco(loco), sharedSection(sharedSection), noBorneDebut(noBorneDebut), noBorneFin(noBorneFin) {
         // Eventuel code supplémentaire du constructeur
     }
 
@@ -56,6 +56,9 @@ protected:
      *
      * Par exemple la priorité ou le parcours
      */
+
+    int noBorneDebut;
+    int noBorneFin;
 };
 
 #endif // LOCOMOTIVEBEHAVIOR_H
