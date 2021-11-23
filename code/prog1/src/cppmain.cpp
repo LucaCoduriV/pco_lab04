@@ -38,7 +38,7 @@ int cmain()
      ************/
 
     //Choix de la maquette (A ou B)
-    selection_maquette(/*MAQUETTE_A*/ MAQUETTE_A);
+    selection_maquette(/*MAQUETTE_A*/ MAQUETTE_B);
 
     /**********************************
      * Initialisation des aiguillages *
@@ -49,30 +49,30 @@ int cmain()
     // Vous devrez utiliser cette fonction pour la section partagée pour aiguiller les locos
     // sur le bon parcours (par exemple à la sortie de la section partagée) vous pouvez l'
     // appeler depuis vos thread des locos par ex.
-    diriger_aiguillage(1,  TOUT_DROIT, 0);
+    diriger_aiguillage(1,  DEVIE, 0);
     diriger_aiguillage(2,  DEVIE     , 0);
     diriger_aiguillage(3,  DEVIE     , 0);
-    diriger_aiguillage(4,  TOUT_DROIT, 0);
+    diriger_aiguillage(4,  DEVIE, 0);
     diriger_aiguillage(5,  TOUT_DROIT, 0);
-    diriger_aiguillage(6,  TOUT_DROIT, 0);
-    diriger_aiguillage(7,  TOUT_DROIT, 0);
+    //diriger_aiguillage(6,  TOUT_DROIT, 0);
+    diriger_aiguillage(7,  DEVIE, 0);
     diriger_aiguillage(8,  DEVIE     , 0);
-    diriger_aiguillage(9,  DEVIE     , 0);
-    diriger_aiguillage(10, TOUT_DROIT, 0);
-    diriger_aiguillage(11, TOUT_DROIT, 0);
-    diriger_aiguillage(12, TOUT_DROIT, 0);
-    diriger_aiguillage(13, TOUT_DROIT, 0);
+    diriger_aiguillage(9,  TOUT_DROIT     , 0);
+    //diriger_aiguillage(10, TOUT_DROIT, 0);
+    diriger_aiguillage(11, DEVIE, 0);
+    diriger_aiguillage(12, DEVIE, 0);
+    diriger_aiguillage(13, DEVIE, 0);
     diriger_aiguillage(14, DEVIE     , 0);
     diriger_aiguillage(15, DEVIE     , 0);
-    diriger_aiguillage(16, TOUT_DROIT, 0);
-    diriger_aiguillage(17, TOUT_DROIT, 0);
-    diriger_aiguillage(18, TOUT_DROIT, 0);
-    diriger_aiguillage(19, TOUT_DROIT, 0);
-    diriger_aiguillage(20, DEVIE     , 0);
-    diriger_aiguillage(21, DEVIE     , 0);
-    diriger_aiguillage(22, TOUT_DROIT, 0);
-    diriger_aiguillage(23, TOUT_DROIT, 0);
-    diriger_aiguillage(24, TOUT_DROIT, 0);
+    diriger_aiguillage(16, DEVIE, 0);
+    diriger_aiguillage(17, DEVIE, 0);
+//    diriger_aiguillage(18, TOUT_DROIT, 0);
+//    diriger_aiguillage(19, TOUT_DROIT, 0);
+//    diriger_aiguillage(20, DEVIE     , 0);
+//    diriger_aiguillage(21, DEVIE     , 0);
+//    diriger_aiguillage(22, TOUT_DROIT, 0);
+//    diriger_aiguillage(23, TOUT_DROIT, 0);
+//    diriger_aiguillage(24, TOUT_DROIT, 0);
     // diriger_aiguillage(/*NUMERO*/, /*TOUT_DROIT | DEVIE*/, /*0*/);
 
     /********************************
@@ -81,11 +81,11 @@ int cmain()
 
     // Loco 0
     // Exemple de position de départ
-    locoA.fixerPosition(25, 32);
+    locoA.fixerPosition(1, 25);
 
     // Loco 1
     // Exemple de position de départ
-    locoB.fixerPosition(22, 28);
+    locoB.fixerPosition(10, 15);
 
     /***********
      * Message *
