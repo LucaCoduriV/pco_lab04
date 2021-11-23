@@ -41,21 +41,25 @@ public:
      */
     void access(Locomotive &loco) override {
         // TODO
-        mutexSectionOccupee.acquire();
-        if (sectionOccupee) {
-            mutexSectionOccupee.release();
-            loco.arreter();
-            accesSection.acquire();
+//        mutexSectionOccupee.acquire();
+//        if (sectionOccupee) {
+//            mutexSectionOccupee.release();
+//            loco.arreter();
+//            accesSection.acquire();
 
-            loco.demarrer();
+//            loco.demarrer();
 
-            mutexSectionOccupee.acquire();
-            sectionOccupee = true;
-            mutexSectionOccupee.release();
-        } else {
-            sectionOccupee = true;
-            mutexSectionOccupee.release();
-        }
+//            mutexSectionOccupee.acquire();
+//            sectionOccupee = true;
+//            mutexSectionOccupee.release();
+//        } else {
+//            sectionOccupee = true;
+//            mutexSectionOccupee.release();
+//        }
+
+        loco.arreter();
+        accesSection.acquire();
+        loco.demarrer();
         // Exemple de message dans la console globale
         afficher_message(qPrintable(QString("The engine no. %1 accesses the shared section.").arg(loco.numero())));
     }
@@ -67,10 +71,10 @@ public:
      */
     void leave(Locomotive& loco) override {
         // TODO
-        mutexSectionOccupee.acquire();
+       // mutexSectionOccupee.acquire();
         accesSection.release();
-        sectionOccupee = false;
-        mutexSectionOccupee.release();
+       // sectionOccupee = false;
+       // mutexSectionOccupee.release();
         // Exemple de message dans la console globale
         afficher_message(qPrintable(QString("The engine no. %1 leaves the shared section.").arg(loco.numero())));
     }
