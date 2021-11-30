@@ -43,11 +43,14 @@ public:
         // TODO
         mutexSectionOccupee.acquire();
         if (sectionOccupee) {
-            mutexSectionOccupee.release();
             loco.arreter();
+            loco.afficherMessage("arreté zone critique\n");
 
         }
+        mutexSectionOccupee.release();
         accesSection.acquire();
+        loco.afficherMessage("En zone critique\n");
+
         mutexSectionOccupee.acquire();
         sectionOccupee = true;
         mutexSectionOccupee.release();
@@ -73,6 +76,7 @@ public:
        mutexSectionOccupee.release();
 
        accesSection.release();
+       loco.afficherMessage("Hors zone critique\n");
 
         // Exemple de message dans la console globale
         afficher_message(qPrintable(QString("The engine no. %1 leaves the shared section.").arg(loco.numero())));

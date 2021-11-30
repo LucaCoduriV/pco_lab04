@@ -7,6 +7,23 @@
 #include "locomotivebehavior.h"
 #include "ctrain_handler.h"
 
+void LocomotiveBehavior::countContact(int borne) {
+    while(1){
+        attendre_contact(borne);
+        nbTours++;
+
+        if (nbTours % 2 == 0) {
+            mutexBorne.acquire();
+            int temp = borneEntreeZC;
+            borneEntreeZC = borneSortieZC;
+            borneSortieZC = temp;
+            mutexBorne.release();
+            loco.inverserSens();
+
+        }
+    }
+}
+
 void LocomotiveBehavior::run()
 {
     //Initialisation de la locomotive
@@ -17,17 +34,28 @@ void LocomotiveBehavior::run()
     /* A vous de jouer ! */
 
     // Vous pouvez appeler les méthodes de la section partagée comme ceci :
-    //sharedSection->request(loco);
-    //sharedSection->getAccess(loco);
-    //sharedSection->leave(loco);
 
-
+    PcoThread counterThread(&LocomotiveBehavior::countContact,this, borneDepart);
 
     while(1) {
-        attendre_contact(noBorneDebut);
+        int borne;
+
+        mutexBorne.acquire();
+        borne = borneEntreeZC;
+        mutexBorne.release();
+
+        attendre_contact(borne);
+
+        loco.afficherMessage("had contact\n");
         sharedSection->access(loco);
-        way->changeWay(noBorneDebut);
-        attendre_contact(noBorneFin);
+        way->changeWay(borneEntreeZC);
+
+        mutexBorne.acquire();
+        borne = borneSortieZC;
+        mutexBorne.release();
+
+        attendre_contact(borne);
+
         sharedSection->leave(loco);
     }
 }
