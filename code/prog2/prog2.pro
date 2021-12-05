@@ -10,9 +10,11 @@ HEADERS +=  \
     src/locomotive.h \
     src/launchable.h \
     src/locomotivebehavior.h \
-    src/sharedsection.h
+    src/sharedsection.h \
+    src/waycontroller.h
 
 SOURCES +=  \
     src/locomotive.cpp \
     src/cppmain.cpp \
-    src/locomotivebehavior.cpp
+    src/locomotivebehavior.cpp \
+    src/waycontroller.cpp

@@ -2,7 +2,7 @@
 //   / _ \/ ___/ __ \  |_  |/ _ \|_  | / / //
 //  / ___/ /__/ /_/ / / __// // / __/ / /  //
 // /_/   \___/\____/ /____/\___/____//_/   //
-//                                         //
+//
 
 #ifndef LOCOMOTIVEBEHAVIOR_H
 #define LOCOMOTIVEBEHAVIOR_H
@@ -10,6 +10,8 @@
 #include "locomotive.h"
 #include "launchable.h"
 #include "sharedsectioninterface.h"
+#include "waycontroller.h"
+#include "pcosynchro/pcosemaphore.h"
 
 /**
  * @brief La classe LocomotiveBehavior représente le comportement d'une locomotive
@@ -21,7 +23,8 @@ public:
      * \brief locomotiveBehavior Constructeur de la classe
      * \param loco la locomotive dont on représente le comportement
      */
-    LocomotiveBehavior(Locomotive& loco, std::shared_ptr<SharedSectionInterface> sharedSection /*, autres paramètres éventuels */) : loco(loco), sharedSection(sharedSection) {
+    LocomotiveBehavior(Locomotive& loco, std::shared_ptr<SharedSectionInterface> sharedSection, int noBorneDebut,  int noBorneFin, WayController* way, int borneDepart) :
+        loco(loco), sharedSection(sharedSection), borneEntreeZC(noBorneDebut), borneSortieZC(noBorneFin), way(way), borneDepart(borneDepart), mutexBorne(1) {
         // Eventuel code supplémentaire du constructeur
     }
 
@@ -51,11 +54,20 @@ protected:
      */
     std::shared_ptr<SharedSectionInterface> sharedSection;
 
+    void countContact(int borne);
+
     /*
      * Vous êtes libres d'ajouter des méthodes ou attributs
      *
      * Par exemple la priorité ou le parcours
      */
+
+    int borneEntreeZC;
+    int borneSortieZC;
+    int borneDepart;
+    int nbTours = 0;
+    PcoSemaphore mutexBorne;
+    WayController* way;
 };
 
 #endif // LOCOMOTIVEBEHAVIOR_H

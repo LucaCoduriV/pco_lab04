@@ -19,19 +19,16 @@ void LocomotiveBehavior::run()
     // Vous pouvez appeler les méthodes de la section partagée comme ceci :
 
     while(1) {
-        int borne;
 
-        borne = borneEntreeZC;
 
-        attendre_contact(borne);
+        attendre_contact(borneEntreeZC);
 
         loco.afficherMessage("had contact\n");
         sharedSection->access(loco);
         way->changeWay(borneEntreeZC);
 
-        borne = borneSortieZC;
 
-        attendre_contact(borne);
+        attendre_contact(borneSortieZC);
 
         sharedSection->leave(loco);
 
