@@ -19,14 +19,22 @@
 class LocomotiveBehavior : public Launchable
 {
 public:
+
+    struct BornesInfo {
+        int borneRequest;
+        int borneAcces;
+    };
+
     /*!
      * \brief locomotiveBehavior Constructeur de la classe
      * \param loco la locomotive dont on représente le comportement
      */
-    LocomotiveBehavior(Locomotive& loco, std::shared_ptr<SharedSectionInterface> sharedSection, int noBorneDebut,  int noBorneFin, WayController* way, int borneDepart) :
-        loco(loco), sharedSection(sharedSection), borneEntreeZC(noBorneDebut), borneSortieZC(noBorneFin), way(way), borneDepart(borneDepart), mutexBorne(1) {
+    LocomotiveBehavior(Locomotive& loco, std::shared_ptr<SharedSectionInterface> sharedSection, BornesInfo  bornesDebut,  BornesInfo bornesFin, WayController* way, int borneDepart, SharedSectionInterface::LocoId locoId) :
+        loco(loco), sharedSection(sharedSection), bornesDebut(bornesDebut), bornesFin(bornesFin), way(way), borneDepart(borneDepart), mutexBorne(1), locoId(locoId) {
         // Eventuel code supplémentaire du constructeur
     }
+
+
 
 protected:
     /*!
@@ -62,8 +70,9 @@ protected:
      * Par exemple la priorité ou le parcours
      */
 
-    int borneEntreeZC;
-    int borneSortieZC;
+    SharedSectionInterface::LocoId locoId;
+    BornesInfo bornesDebut;
+    BornesInfo bornesFin;
     int borneDepart;
     int nbTours = 0;
     PcoSemaphore mutexBorne;

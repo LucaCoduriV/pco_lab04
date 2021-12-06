@@ -22,7 +22,42 @@ void LocomotiveBehavior::run()
     //sharedSection->getAccess(loco);
     //sharedSection->leave(loco);
 
-    while(1) {}
+    while(1) {
+
+        attendre_contact(bornesDebut.borneRequest);
+        sharedSection->request(loco, locoId, SharedSectionInterface::EntryPoint::EA);
+        loco.afficherMessage(QString("%1").arg(bornesDebut.borneAcces));
+        attendre_contact(bornesDebut.borneAcces);
+        sharedSection->getAccess(loco, locoId);
+        way->changeWay(bornesDebut.borneAcces);
+
+        attendre_contact(bornesFin.borneAcces);
+        sharedSection->leave(loco, locoId);
+
+
+//        attendre_contact(borneEntreeZC);
+
+//        loco.afficherMessage("had contact\n");
+//        sharedSection->getAccess(loco);
+//        way->changeWay(borneEntreeZC);
+
+
+//        attendre_contact(borneSortieZC);
+
+//        sharedSection->leave(loco);
+
+//        attendre_contact(borneDepart);
+//        nbTours++;
+
+//        if (nbTours % 2 == 0) {
+
+//            int temp = borneEntreeZC;
+//            borneEntreeZC = borneSortieZC;
+//            borneSortieZC = temp;
+//            loco.inverserSens();
+//        }
+
+    }
 }
 
 void LocomotiveBehavior::printStartMessage()

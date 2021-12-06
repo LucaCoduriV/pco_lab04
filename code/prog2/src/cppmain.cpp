@@ -82,7 +82,7 @@ int cmain()
 
     // Loco 0
     // Exemple de position de départ
-    locoA.fixerPosition(1, 25);
+    locoA.fixerPosition(25, 20);
 
     // Loco 1
     // Exemple de position de départ
@@ -118,10 +118,15 @@ int cmain()
     // Création de la section partagée
     std::shared_ptr<SharedSectionInterface> sharedSection = std::make_shared<SharedSection>();
 
+    LocomotiveBehavior::BornesInfo bornesDebutA = {25, 1};
+    LocomotiveBehavior::BornesInfo bornesFinA = {20, 19};
+
+    LocomotiveBehavior::BornesInfo bornesDebutB= {4, 3};
+    LocomotiveBehavior::BornesInfo bornesFinB = {2, 22};
     // Création du thread pour la loco 0
-    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, 1, 19, &way2, 25);
+    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, bornesDebutA, bornesFinA, &way2, 20, SharedSection::LocoId::LA);
     // Création du thread pour la loco 1
-    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, 3, 22, &way1, 15);
+    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, bornesDebutB, bornesFinB, &way1, 15,  SharedSection::LocoId::LB);
 
     // Lanchement des threads
     afficher_message(qPrintable(QString("Lancement thread loco A (numéro %1)").arg(locoA.numero())));
