@@ -25,7 +25,7 @@ void LocomotiveBehavior::run()
     while(1) {
 
         attendre_contact(bornesDebut.borneRequest);
-        sharedSection->request(loco, locoId, SharedSectionInterface::EntryPoint::EA);
+        sharedSection->request(loco, locoId, entryPoint);
         loco.afficherMessage(QString("%1").arg(bornesDebut.borneAcces));
         attendre_contact(bornesDebut.borneAcces);
         sharedSection->getAccess(loco, locoId);
@@ -35,27 +35,18 @@ void LocomotiveBehavior::run()
         sharedSection->leave(loco, locoId);
 
 
-//        attendre_contact(borneEntreeZC);
+        attendre_contact(borneDepart);
+        nbTours++;
 
-//        loco.afficherMessage("had contact\n");
-//        sharedSection->getAccess(loco);
-//        way->changeWay(borneEntreeZC);
+        if (nbTours % 2 == 0) {
 
+            BornesInfo temp = bornesDebut;
+            bornesDebut = bornesFin;
+            bornesFin = temp;
 
-//        attendre_contact(borneSortieZC);
-
-//        sharedSection->leave(loco);
-
-//        attendre_contact(borneDepart);
-//        nbTours++;
-
-//        if (nbTours % 2 == 0) {
-
-//            int temp = borneEntreeZC;
-//            borneEntreeZC = borneSortieZC;
-//            borneSortieZC = temp;
-//            loco.inverserSens();
-//        }
+            entryPoint = entryPoint == SharedSectionInterface::EntryPoint::EA ? SharedSectionInterface::EntryPoint::EB : SharedSectionInterface::EntryPoint::EA;
+            loco.inverserSens();
+        }
 
     }
 }

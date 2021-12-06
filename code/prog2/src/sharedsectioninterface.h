@@ -33,7 +33,7 @@ public:
      */
     enum class EntryPoint {
         EA,
-        EB,
+        EB
     };
 
     /**

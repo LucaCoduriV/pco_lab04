@@ -29,8 +29,8 @@ public:
      * \brief locomotiveBehavior Constructeur de la classe
      * \param loco la locomotive dont on représente le comportement
      */
-    LocomotiveBehavior(Locomotive& loco, std::shared_ptr<SharedSectionInterface> sharedSection, BornesInfo  bornesDebut,  BornesInfo bornesFin, WayController* way, int borneDepart, SharedSectionInterface::LocoId locoId) :
-        loco(loco), sharedSection(sharedSection), bornesDebut(bornesDebut), bornesFin(bornesFin), way(way), borneDepart(borneDepart), mutexBorne(1), locoId(locoId) {
+    LocomotiveBehavior(Locomotive& loco, std::shared_ptr<SharedSectionInterface> sharedSection, BornesInfo  bornesDebut,  BornesInfo bornesFin, WayController* way, int borneDepart, SharedSectionInterface::LocoId locoId, SharedSectionInterface::EntryPoint entryPoint) :
+        loco(loco), sharedSection(sharedSection), bornesDebut(bornesDebut), bornesFin(bornesFin), way(way), borneDepart(borneDepart), mutexBorne(1), locoId(locoId), entryPoint(entryPoint) {
         // Eventuel code supplémentaire du constructeur
     }
 
@@ -71,6 +71,7 @@ protected:
      */
 
     SharedSectionInterface::LocoId locoId;
+    SharedSectionInterface::EntryPoint entryPoint;
     BornesInfo bornesDebut;
     BornesInfo bornesFin;
     int borneDepart;

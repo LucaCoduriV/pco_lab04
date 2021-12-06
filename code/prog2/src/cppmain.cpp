@@ -51,19 +51,19 @@ int cmain()
     // sur le bon parcours (par exemple à la sortie de la section partagée) vous pouvez l'
     // appeler depuis vos thread des locos par ex.
     diriger_aiguillage(1,  DEVIE, 0);
-    diriger_aiguillage(2,  DEVIE     , 0);
+    diriger_aiguillage(2,  TOUT_DROIT     , 0);
     diriger_aiguillage(3,  DEVIE     , 0);
     diriger_aiguillage(4,  DEVIE, 0);
-    diriger_aiguillage(5,  TOUT_DROIT, 0);
-    //diriger_aiguillage(6,  TOUT_DROIT, 0);
+    diriger_aiguillage(5,  DEVIE, 0);
+    diriger_aiguillage(6,  TOUT_DROIT, 0);
     diriger_aiguillage(7,  DEVIE, 0);
-    diriger_aiguillage(8,  DEVIE     , 0);
-    diriger_aiguillage(9,  TOUT_DROIT     , 0);
-    //diriger_aiguillage(10, TOUT_DROIT, 0);
-    diriger_aiguillage(11, DEVIE, 0);
+    diriger_aiguillage(8,  TOUT_DROIT     , 0);
+    diriger_aiguillage(9,  DEVIE     , 0);
+    diriger_aiguillage(10, TOUT_DROIT, 0);
+    diriger_aiguillage(11, TOUT_DROIT, 0);
     diriger_aiguillage(12, DEVIE, 0);
     diriger_aiguillage(13, DEVIE, 0);
-    diriger_aiguillage(14, DEVIE     , 0);
+    diriger_aiguillage(14, TOUT_DROIT     , 0);
     diriger_aiguillage(15, DEVIE     , 0);
     diriger_aiguillage(16, DEVIE, 0);
     diriger_aiguillage(17, DEVIE, 0);
@@ -82,11 +82,11 @@ int cmain()
 
     // Loco 0
     // Exemple de position de départ
-    locoA.fixerPosition(25, 20);
+    locoA.fixerPosition(7, 13);
 
     // Loco 1
     // Exemple de position de départ
-    locoB.fixerPosition(10, 15);
+    locoB.fixerPosition(12, 17);
 
     /***********
      * Message *
@@ -118,15 +118,15 @@ int cmain()
     // Création de la section partagée
     std::shared_ptr<SharedSectionInterface> sharedSection = std::make_shared<SharedSection>();
 
-    LocomotiveBehavior::BornesInfo bornesDebutA = {25, 1};
-    LocomotiveBehavior::BornesInfo bornesFinA = {20, 19};
+    LocomotiveBehavior::BornesInfo bornesDebutA = {2, 1};
+    LocomotiveBehavior::BornesInfo bornesFinA = {14, 19};
 
     LocomotiveBehavior::BornesInfo bornesDebutB= {4, 3};
     LocomotiveBehavior::BornesInfo bornesFinB = {2, 22};
     // Création du thread pour la loco 0
-    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, bornesDebutA, bornesFinA, &way2, 20, SharedSection::LocoId::LA);
+    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, bornesDebutA, bornesFinA, &way2, 13, SharedSection::LocoId::LA, SharedSection::EntryPoint::EA);
     // Création du thread pour la loco 1
-    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, bornesDebutB, bornesFinB, &way1, 15,  SharedSection::LocoId::LB);
+    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, bornesDebutB, bornesFinB, &way1, 17,  SharedSection::LocoId::LB, SharedSection::EntryPoint::EA);
 
     // Lanchement des threads
     afficher_message(qPrintable(QString("Lancement thread loco A (numéro %1)").arg(locoA.numero())));
